@@ -18,7 +18,7 @@ const Home = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://jorjekhan-001-site1.site4future.com/api/analyze.php",
+        "https://jorjekhan-001-site1.site4future.com/api/analyze.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -57,20 +57,28 @@ const Home = () => {
           </div>
           <div className="form-group">
             <label>رابط المصدر (اختياري):</label>
-            <div style={{ position: 'relative' }}>
-               <input
+            <div style={{ position: "relative" }}>
+              <input
                 type="text"
                 placeholder="https://example.com/news..."
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                style={{ paddingRight: '40px' }}
+                style={{ paddingRight: "40px" }}
               />
-              <LinkIcon size={18} style={{ position: 'absolute', right: '12px', top: '14px', color: '#64748b' }} />
+              <LinkIcon
+                size={18}
+                style={{
+                  position: "absolute",
+                  right: "12px",
+                  top: "14px",
+                  color: "#64748b",
+                }}
+              />
             </div>
           </div>
           <button type="submit" className="btn-primary" disabled={loading}>
             {loading ? "جاري التحليل..." : "بدء التحليل الآن"}
-            <Search size={18} style={{ marginRight: '10px' }} />
+            <Search size={18} style={{ marginRight: "10px" }} />
           </button>
         </form>
       </div>
@@ -79,23 +87,17 @@ const Home = () => {
         <div className="card">
           <div className="icon-wrapper-small">🔍</div>
           <h3>تحليل الكلمات</h3>
-          <p>
-            فحص الأنماط اللغوية والكلمات التي تشير إلى الأخبار المضللة.
-          </p>
+          <p>فحص الأنماط اللغوية والكلمات التي تشير إلى الأخبار المضللة.</p>
         </div>
         <div className="card">
           <div className="icon-wrapper-small">🛡️</div>
           <h3>توثيق المصدر</h3>
-          <p>
-            مطابقة النطاق مع قوائم بيضاء للمصادر الموثوقة والمعتمدة.
-          </p>
+          <p>مطابقة النطاق مع قوائم بيضاء للمصادر الموثوقة والمعتمدة.</p>
         </div>
         <div className="card">
           <div className="icon-wrapper-small">📈</div>
           <h3>درجة اليقين</h3>
-          <p>
-            توفير نسبة مئوية دقيقة تعكس مدى مصداقية الخبر المحلل.
-          </p>
+          <p>توفير نسبة مئوية دقيقة تعكس مدى مصداقية الخبر المحلل.</p>
         </div>
       </div>
     </div>
