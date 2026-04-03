@@ -164,6 +164,7 @@ textarea {
 .status-trusted { background-color: var(--success-color); color: white; }
 .status-uncertain { background-color: var(--warning-color); color: white; }
 .status-fake { background-color: var(--error-color); color: white; }
+.status-invalid { background-color: #64748b; color: white; }
 
 .confidence-circle {
   font-size: 3rem;

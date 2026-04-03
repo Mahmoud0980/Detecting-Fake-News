@@ -12,7 +12,8 @@ const Result = () => {
   const getStatusClass = (status) => {
     if (status === 'trusted') return 'status-trusted';
     if (status === 'uncertain') return 'status-uncertain';
-    return 'status-fake';
+    if (status === 'fake') return 'status-fake';
+    return 'status-invalid';
   };
 
   return (
