@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Result from './pages/Result';
 import About from './pages/About';
@@ -12,7 +13,8 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/detector" element={<Home />} />
           <Route path="/result" element={<Result />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

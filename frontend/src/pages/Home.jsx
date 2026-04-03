@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Search, Link as LinkIcon, AlertCircle } from "lucide-react";
 
 const Home = () => {
   const [text, setText] = useState("");
@@ -37,10 +38,9 @@ const Home = () => {
   return (
     <div className="container">
       <div className="hero">
-        <h1>كاشف الأخبار الكاذبة</h1>
+        <h1>المحلل الذكي للأخبار</h1>
         <p>
-          نظام ذكي للتحقق من مصداقية الأخبار العربية باستخدام تحليل الكلمات
-          والمصادر
+          قم بلصق النص أو الرابط أدناه للحصول على تقييم فوري لمصداقية المحتوى.
         </p>
       </div>
 
@@ -49,46 +49,52 @@ const Home = () => {
           <div className="form-group">
             <label>نص الخبر:</label>
             <textarea
-              placeholder="انسخ نص الخبر هنا..."
+              placeholder="ضع نص الخبر هنا للتحليل..."
               value={text}
               onChange={(e) => setText(e.target.value)}
               required
             ></textarea>
           </div>
           <div className="form-group">
-            <label>رابط الخبر (اختياري):</label>
-            <input
-              type="text"
-              placeholder="https://example.com/news..."
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
+            <label>رابط المصدر (اختياري):</label>
+            <div style={{ position: 'relative' }}>
+               <input
+                type="text"
+                placeholder="https://example.com/news..."
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                style={{ paddingRight: '40px' }}
+              />
+              <LinkIcon size={18} style={{ position: 'absolute', right: '12px', top: '14px', color: '#64748b' }} />
+            </div>
           </div>
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? "جاري التحليل..." : "تحليل الخبر"}
+            {loading ? "جاري التحليل..." : "بدء التحليل الآن"}
+            <Search size={18} style={{ marginRight: '10px' }} />
           </button>
         </form>
       </div>
 
       <div className="info-cards">
         <div className="card">
-          <h3>تحليل النص</h3>
+          <div className="icon-wrapper-small">🔍</div>
+          <h3>تحليل الكلمات</h3>
           <p>
-            نقوم بفحص الكلمات المفتاحية المستخدمة في النص للكشف عن الأساليب
-            المضللة.
+            فحص الأنماط اللغوية والكلمات التي تشير إلى الأخبار المضللة.
           </p>
         </div>
         <div className="card">
-          <h3>فحص المصدر</h3>
+          <div className="icon-wrapper-small">🛡️</div>
+          <h3>توثيق المصدر</h3>
           <p>
-            نتحقق من نطاق الموقع (Domain) ومقارنته بقائمة المصادر الموثوقة
-            لدينا.
+            مطابقة النطاق مع قوائم بيضاء للمصادر الموثوقة والمعتمدة.
           </p>
         </div>
         <div className="card">
-          <h3>نسبة الثقة</h3>
+          <div className="icon-wrapper-small">📈</div>
+          <h3>درجة اليقين</h3>
           <p>
-            نعطيك نتيجة رقمية توضح مدى مصداقية الخبر بناءً على المعايير المحددة.
+            توفير نسبة مئوية دقيقة تعكس مدى مصداقية الخبر المحلل.
           </p>
         </div>
       </div>
