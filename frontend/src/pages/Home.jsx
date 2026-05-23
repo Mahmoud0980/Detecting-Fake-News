@@ -7,6 +7,13 @@ const Home = () => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const token = localStorage.getItem("user_token");
+
+  React.useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
 
   const handleAnalyze = async (e) => {
     e.preventDefault();
@@ -21,11 +28,28 @@ const Home = () => {
         "https://jorjekhan-001-site1.site4future.com/api/analyze.php",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify({ text, url }),
         },
       );
       const data = await response.json();
+      
+      if (response.status === 401 || response.status === 403) {
+        alert(data.message || "جلسة غير صالحة. يرجى تسجيل الدخول.");
+        localStorage.removeItem("user_token");
+        localStorage.removeItem("user_info");
+        navigate("/login");
+        return;
+      }
+
+      if (!response.ok) {
+        alert(data.message || "حدث خطأ أثناء تحليل الخبر.");
+        return;
+      }
+
       navigate("/result", { state: { result: data } });
     } catch (error) {
       console.error("Error analyzing news:", error);

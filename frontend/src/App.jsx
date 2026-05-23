@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Result from './pages/Result';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import UserLogin from './pages/Login';
+import UserRegister from './pages/Register';
 
 // Admin Imports
 import AdminLayout from './components/AdminLayout';
@@ -15,6 +17,7 @@ import Dashboard from './pages/admin/Dashboard';
 import AnalysisLogs from './pages/admin/AnalysisLogs';
 import KeywordManagement from './pages/admin/KeywordManagement';
 import SourceManagement from './pages/admin/SourceManagement';
+import UserManagement from './pages/admin/UserManagement';
 
 import './index.css';
 
@@ -28,6 +31,8 @@ function App() {
         <Route path="/result" element={<Layout><Result /></Layout>} />
         <Route path="/about" element={<Layout><About /></Layout>} />
         <Route path="/contact" element={<Layout><Contact /></Layout>} />
+        <Route path="/login" element={<Layout><UserLogin /></Layout>} />
+        <Route path="/register" element={<Layout><UserRegister /></Layout>} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<Login />} />
@@ -36,6 +41,14 @@ function App() {
           <ProtectedRoute>
             <AdminLayout>
               <Dashboard />
+            </AdminLayout>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/users" element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <UserManagement />
             </AdminLayout>
           </ProtectedRoute>
         } />

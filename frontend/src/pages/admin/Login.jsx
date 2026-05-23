@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, AlertCircle } from 'lucide-react';
+import { Lock, User, AlertCircle, ShieldCheck, ChevronLeft } from 'lucide-react';
+import '../../Admin.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const response = await fetch('https://jorjekhan-001-site1.site4future.com/api/admin.php?action=login', {
                 method: 'POST',
@@ -25,46 +28,48 @@ const Login = () => {
             }
         } catch (err) {
             setError('خطأ في الاتصال بالخادم');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4" dir="rtl">
-            <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
-                <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-gray-800">تسجيل الدخول للإدارة</h2>
-                    <p className="text-gray-500 mt-2">يرجى إدخال بيانات الاعتماد الخاصة بك</p>
+        <div className="login-page" dir="rtl">
+            <div className="login-blob-1" />
+            <div className="login-blob-2" />
+
+            <div className="login-card animate-fade">
+                <div className="login-header">
+                    <div className="login-logo">
+                        <ShieldCheck size={40} />
+                    </div>
+                    <h2>نظام الإدارة</h2>
+                    <p>أمان ذكي. كشف فوري.</p>
                 </div>
 
-                <form onSubmit={handleLogin} className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">اسم المستخدم</label>
-                        <div className="relative">
-                            <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400">
-                                <User size={20} />
-                            </span>
+                <form onSubmit={handleLogin}>
+                    <div className="login-form-group">
+                        <label>اسم المستخدم</label>
+                        <div className="input-wrapper">
+                            <span className="input-icon"><User size={20} /></span>
                             <input
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                className="block w-full pr-10 pl-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                                placeholder="admin"
+                                placeholder="اسم المستخدم"
                                 required
                             />
                         </div>
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">كلمة المرور</label>
-                        <div className="relative">
-                            <span className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400">
-                                <Lock size={20} />
-                            </span>
+                    <div className="login-form-group">
+                        <label>كلمة المرور</label>
+                        <div className="input-wrapper">
+                            <span className="input-icon"><Lock size={20} /></span>
                             <input
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="block w-full pr-10 pl-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                                 placeholder="••••••••"
                                 required
                             />
@@ -72,19 +77,29 @@ const Login = () => {
                     </div>
 
                     {error && (
-                        <div className="flex items-center gap-2 text-red-600 bg-red-50 p-3 rounded-lg text-sm">
-                            <AlertCircle size={18} />
+                        <div className="login-error animate-fade">
+                            <AlertCircle size={20} />
                             <span>{error}</span>
                         </div>
                     )}
 
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all transform hover:scale-[1.02]"
+                        disabled={loading}
+                        className="login-btn"
                     >
-                        تسجيل الدخول
+                        {loading ? 'جاري التحقق...' : (
+                            <>
+                                <span>تسجيل الدخول</span>
+                                <ChevronLeft size={20} />
+                            </>
+                        )}
                     </button>
                 </form>
+                
+                <p style={{ textAlign: 'center', marginTop: '40px', color: '#94a3b8', fontSize: '0.85rem', fontWeight: 600 }}>
+                    نظام حماية المحتوى &copy; {new Date().getFullYear()}
+                </p>
             </div>
         </div>
     );
